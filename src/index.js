@@ -64,12 +64,12 @@ app.post("/todos", checksExistsUserAccount, (request, response) => {
   return response.status(201).send();
 });
 
-app.put("/todos/:id", checksExistsUserAccount, (request, response) => {
+app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { id, title, deadline } = request.body;
   const { user } = request;
-
+  
   if (!user.todos[id]) {
-    return response.status(400).json({ message: "To do not found" });
+    return response.status(404).json({ message: "To do not found" });
   }
 
   user.todos[id].title = title;
@@ -78,12 +78,12 @@ app.put("/todos/:id", checksExistsUserAccount, (request, response) => {
   return response.status(201).send();
 });
 
-app.patch("/todos/:id/done", checksExistsUserAccount, (request, response) => {
+app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   const { id } = request.body;
   const { user } = request;
-
+  
   if (!user.todos[id]) {
-    return response.status(400).json({ message: "To do not found" });
+    return response.status(404).json({ message: "To do not found" });
   }
 
   user.todos[id].done = true;
@@ -91,8 +91,17 @@ app.patch("/todos/:id/done", checksExistsUserAccount, (request, response) => {
   return response.status(200).send();
 });
 
-// app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-//   // Complete aqui
-// });
+app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
+  const { id } = request.body;
+  const { user } = request;
+
+  if (!user.todos[id]) {
+    return response.status(404).json({ message: "To do not found" });
+  }
+
+  user.todos.splice(id, 1);
+
+  return response.status(200).json(user.todos);
+});
 
 module.exports = app;
