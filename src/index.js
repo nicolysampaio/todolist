@@ -64,10 +64,10 @@ app.post("/todos", checksExistsUserAccount, (request, response) => {
   return response.status(201).send();
 });
 
-app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
+app.put("/todos/:id", checksExistsUserAccount, (request, response) => {
   const { id, title, deadline } = request.body;
   const { user } = request;
-  
+
   if (!user.todos[id]) {
     return response.status(400).json({ message: "To do not found" });
   }
@@ -78,9 +78,18 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   return response.status(201).send();
 });
 
-// app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-//   // Complete aqui
-// });
+app.patch("/todos/:id/done", checksExistsUserAccount, (request, response) => {
+  const { id } = request.body;
+  const { user } = request;
+
+  if (!user.todos[id]) {
+    return response.status(400).json({ message: "To do not found" });
+  }
+
+  user.todos[id].done = true;
+
+  return response.status(200).send();
+});
 
 // app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
 //   // Complete aqui
