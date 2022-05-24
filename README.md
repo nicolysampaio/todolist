@@ -3,8 +3,8 @@
 ## Requisitos
 
 - [x] Deve ser possível criar um usuário
+- [x] Deve ser possível listar os To Do de um usuário
 - [] Deve ser possível criar um novo To Do
-- [] Deve ser possível listar os To Do de um usuário
 - [] Deve ser possível alterar o titúlo e o prazo de um To Do
 - [] Deve ser possível marcar um To Do como feito
 - [] Deve ser possível excluir um To Do
