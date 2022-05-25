@@ -1,5 +1,5 @@
 {
   "ignore": [
-    "tests"
+    "__tests__"
   ]
 }
